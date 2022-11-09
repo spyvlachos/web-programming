@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+    <h1>add store</h1>
+    <form id="reg-form">
+      <input type="text" autocomplete="off" id="name" placeholder="name" />
+      <input type="text" autocomplete="off" id="address" placeholder="address" />
+    <!--  <input type="text" autocomplete="off" id="types" placeholder="types" /> -->
+   <!--    <input type="text" autocomplete="off" id="coordinates" placeholder="coordinates" /> -->
+      <input type="number" autocomplete="off" id="rating" placeholder="rating" />
+      <input type="number" autocomplete="off" id="rating_n" placeholder="rating_n" />
+   <!--   <input type="text" autocomplete="off" id="populartimes" placeholder="populartimes" /> -->
+      
+      <input type="submit" value="Submit Form" />
+     
+    
+      
+    </form>
+    </div>
+
+    <script>
+      const form = document.getElementById('reg-form')
+      form.addEventListener('submit', registerStore)
+
+      async function registerStore(event) {
+      event.preventDefault()
+      const name = document.getElementById('name').value
+      const address = document.getElementById('address').value
+   <!--    const types = document.getElementById('types').value  -->
+   <!--   const coordinates = document.getElementById('coordinates').value -->
+      const rating = document.getElementById('rating').value
+      const rating_n = document.getElementById('rating_n').value
+    <!--  const populartimes = document.getElementById('populartimes').value -->
+
+      const result = await fetch('/api/addStores', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+     name,  address,  rating, rating_n
+      })
+      }).then((res) => res.json())
+
+      if (result.status === 'ok') {
+      // everythign went fine
+      alert('Success')
+      } else {
+      alert(result.error)
+      }
+      }
+    </script>
+  </body>
+</html>
